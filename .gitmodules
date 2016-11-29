@@ -1,0 +1,9 @@
+[submodule "3rdParty/mybase"]
+	path = 3rdParty/mybase
+	url = https://github.com/gnobbi/mybase
+[submodule "3rdParty/mygui"]
+	path = 3rdParty/mygui
+	url = https://github.com/gnobbi/mygui
+[submodule "3rdParty/mycv"]
+	path = 3rdParty/mycv
+	url = https://github.com/gnobbi/mycv
