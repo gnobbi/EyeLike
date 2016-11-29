@@ -42,6 +42,8 @@ set(exe_name ${main_exe_name})
 file(GLOB_RECURSE external_header include/*.h)
 file(GLOB_RECURSE internal_header src/*.h)
 file(GLOB_RECURSE srcs src/*.cpp)
+ADD_MSVC_PRECOMPILED_HEADER(${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.cpp "${srcs}")
+
 add_executable(${exe_name} ${external_header} ${internal_header} ${srcs})
 
 ### source filters ###   	

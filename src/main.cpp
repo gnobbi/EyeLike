@@ -1,13 +1,6 @@
-#include <iostream>
-#include <signals/signals.h>
+#include "precompiled.h"
 
-#include <iostream>
-#include <vector>
-#include <functional>
-#include <chrono>
-#include <string>
-#include <map>
-#include <set>
+#include <signals/signals.h>
 
 
 struct Foo {
