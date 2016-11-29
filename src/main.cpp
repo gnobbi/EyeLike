@@ -1,7 +1,5 @@
 #include <iostream>
-#include <Window/Window.h>
-#include <Image/Image.h>
-#include <xml/xml.h>
+#include <signals/signals.h>
 
 #include <iostream>
 #include <vector>
@@ -11,28 +9,6 @@
 #include <map>
 #include <set>
 
-#include <functional>
-
-template<class R, class... Args>
-struct Signal {
-	std::vector<std::function<R(Args...)>> vec;
-	int Subscribe(std::function<R(Args...)>(f))
-	{
-		vec.push_back(f);
-
-		return vec.size()-1;
-	}
-
-	void Release(int index) {
-		vec[index] = nullptr;
-	}
-
-	void Emit(Args... args) {
-		for (const auto& fun : vec)
-			if(fun != nullptr)
-				fun(args...);
-	}
-};
 
 struct Foo {
 	void bar(std::string s) {
@@ -51,7 +27,7 @@ struct Foo {
 
 int main() {
 	Foo foo;
-	Signal<void, std::string, int, int> Event;
+	mybase::Signal<void, std::string, int, int> Event;
 
 	auto index = Event.Subscribe(foo.GetSlot());
 	auto index2 = Event.Subscribe(foo.GetSlot());
