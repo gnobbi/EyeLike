@@ -18,23 +18,33 @@ struct Foo {
 };
 
 
+template<class R, class... Args>
+class Connection {
+public:
+	Connection(mybase::Signal<R, Args...>* sig, const std::function<R(Args...)>& slot)
+	: m_sig(sig) {
+		id = m_sig->Subscribe(slot);
+	}
+	~Connection() {
+		m_sig->Release(id);
+	}
+private:
+	uint32_t id;
+	mybase::Signal<R, Args...>* m_sig;
+};
+
 int main() {
+
 	Foo foo;
 	mybase::Signal<void, std::string, int, int> Event;
-
 	auto index = Event.Subscribe(foo.GetSlot());
-	auto index2 = Event.Subscribe(foo.GetSlot());
-	auto index3 = Event.Subscribe(foo.GetSlot());
-	auto index4 = Event.Subscribe(foo.GetSlot());
-	auto index5 = Event.Subscribe(foo.GetSlot());
+
+	{
+		Connection<void, std::string, int, int> con(&Event, foo.GetSlot());
+		Event.Emit("Hallo", 7, 3);
+	}
 
 	Event.Emit("Hallo", 10, 10);
-
-	Event.Release(index2);
-	Event.Release(index3);
-	Event.Release(index4);
-	Event.Release(index5);
-
 	Event.Emit("new", 10, 10);
 
 }
